@@ -129,11 +129,27 @@ def show_detail(kab_default='Badung'):
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap');
 
+    /* === FORCE LIGHT MODE SELURUH APP === */
+    html, body,
+    [data-testid="stApp"],
+    [data-testid="stAppViewContainer"],
+    [data-testid="stAppViewContainer"] > .main {
+        background-color: #f0f4f1 !important;
+        color: #1a1a1a !important;
+    }
     html, body, [class*="css"] { font-family: 'Plus Jakarta Sans', sans-serif; }
-    #MainMenu, footer           { visibility: hidden; }
-    header                      { visibility: visible !important; background: transparent !important; }
-    .block-container            { padding: 0 !important; max-width: 100% !important; }
+    #MainMenu, footer { visibility: hidden; }
+    header { visibility: visible !important; background: transparent !important; }
+    .block-container { padding: 0 !important; max-width: 100% !important; }
 
+    /* === FORCE SEMUA TEKS TERLIHAT === */
+    p, span, div, label, h1, h2, h3, h4, h5, h6,
+    .stMarkdown, [data-testid="stMarkdownContainer"],
+    [data-testid="stText"] {
+        color: #1a1a1a !important;
+    }
+
+    /* === SIDEBAR === */
     [data-testid="collapsedControl"] {
         display: flex !important; visibility: visible !important;
         background: #1a3d2b !important; border-radius: 0 8px 8px 0 !important; z-index: 9999 !important;
@@ -153,52 +169,120 @@ def show_detail(kab_default='Badung'):
     [data-testid="stSidebar"] div,
     [data-testid="stSidebar"] label { color: #e8f5ee !important; }
     [data-testid="stSidebar"] label {
-        font-size:0.78rem !important; font-weight:700 !important;
-        text-transform:uppercase !important; letter-spacing:0.06em !important;
+        font-size: 0.78rem !important; font-weight: 700 !important;
+        text-transform: uppercase !important; letter-spacing: 0.06em !important;
     }
     [data-testid="stSidebar"] .stSelectbox > div > div {
         background: rgba(255,255,255,0.12) !important;
         border: 1px solid rgba(255,255,255,0.3) !important;
         border-radius: 10px !important;
+        color: #e8f5ee !important;
     }
     [data-testid="stSidebar"] .stSelectbox svg { fill: #e8f5ee !important; }
     [data-testid="stSidebar"] button {
         background: linear-gradient(135deg, #f4a62a, #e8942a) !important;
         color: #1a3d2b !important; font-weight: 800 !important; border: none !important;
         border-radius: 12px !important; width: 100% !important; padding: 0.6rem !important;
-        box-shadow: 0 4px 14px rgba(244,166,42,0.4) !important; margin-bottom: 8px !important;
+        box-shadow: 0 4px 14px rgba(244,166,42,0.4) !important; cursor: pointer !important;
+        margin-bottom: 8px !important;
     }
-    [data-testid="stAppViewContainer"] > .main { background: #f0f4f1; }
+    [data-testid="stSidebar"] button:hover { box-shadow: 0 8px 20px rgba(244,166,42,0.5) !important; }
+    
+    /* Matikan resize handle sidebar */
+    [data-testid="stSidebar"] {
+        resize: none !important;
+        min-width: 270px !important;
+        max-width: 270px !important;
+        width: 270px !important;
+    }
 
+    /* Sembunyikan drag handle */
+    [data-testid="stSidebarResizeHandle"],
+    .stSidebarResizeHandle {
+        display: none !important;
+        pointer-events: none !important;
+        width: 0 !important;
+    }
+
+
+    /* === METRIC & CARD COMPONENTS === */
     .metric-grid {
         display: grid; grid-template-columns: repeat(auto-fit, minmax(180px,1fr));
         gap: 14px; padding: 20px 24px 0;
     }
     .metric-card {
-        background:white; border-radius:16px; padding:18px 20px;
-        box-shadow:0 2px 12px rgba(0,0,0,0.06); border-left:4px solid #40916c;
-        transition:transform 0.2s,box-shadow 0.2s;
+        background: #ffffff !important; border-radius: 16px; padding: 18px 20px;
+        box-shadow: 0 2px 12px rgba(0,0,0,0.06); border-left: 4px solid #40916c;
+        transition: transform 0.2s, box-shadow 0.2s;
     }
-    .metric-card:hover { transform:translateY(-3px); box-shadow:0 6px 20px rgba(0,0,0,0.10); }
-    .metric-card.kuning { border-left-color:#f4a62a; }
-    .metric-card.merah  { border-left-color:#e63946; }
-    .metric-card.biru   { border-left-color:#457b9d; }
-    .metric-label { font-size:0.72rem; font-weight:700; text-transform:uppercase; letter-spacing:0.07em; color:#6b7280; margin-bottom:6px; }
-    .metric-value { font-size:1.7rem; font-weight:800; color:#1a3d2b; line-height:1; }
-    .metric-unit  { font-size:0.75rem; color:#6b7280; }
-    .metric-badge { display:inline-block; margin-top:6px; padding:2px 10px; border-radius:20px; font-size:0.7rem; font-weight:700; }
-    .badge-tinggi { background:#d1fae5; color:#065f46; }
-    .badge-sedang { background:#fef3c7; color:#92400e; }
-    .badge-rendah { background:#fee2e2; color:#991b1b; }
+    .metric-card:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,0,0,0.10); }
+    .metric-card.kuning { border-left-color: #f4a62a; }
+    .metric-card.merah  { border-left-color: #e63946; }
+    .metric-card.biru   { border-left-color: #457b9d; }
+    .metric-label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: #6b7280 !important; margin-bottom: 6px; }
+    .metric-value { font-size: 1.7rem; font-weight: 800; color: #1a3d2b !important; line-height: 1; }
+    .metric-unit  { font-size: 0.75rem; color: #6b7280 !important; }
+    .metric-badge { display: inline-block; margin-top: 6px; padding: 2px 10px; border-radius: 20px; font-size: 0.7rem; font-weight: 700; }
+    .badge-tinggi { background: #d1fae5 !important; color: #065f46 !important; }
+    .badge-sedang { background: #fef3c7 !important; color: #92400e !important; }
+    .badge-rendah { background: #fee2e2 !important; color: #991b1b !important; }
+
     .section-header {
-        font-family:'Playfair Display',serif; font-size:1.15rem; font-weight:700; color:#1a3d2b;
-        border-bottom:2px solid #74c69d; padding-bottom:6px; margin:24px 24px 14px;
+        font-family: 'Playfair Display', serif; font-size: 1.15rem; font-weight: 700; color: #1a3d2b !important;
+        border-bottom: 2px solid #74c69d; padding-bottom: 6px; margin: 24px 24px 14px;
     }
     .info-box {
-        background:white; border-radius:14px; padding:16px 20px; margin:16px 24px;
-        box-shadow:0 2px 10px rgba(0,0,0,0.05); font-size:0.85rem; line-height:1.6; color:#374151;
+        background: #ffffff !important; border-radius: 14px; padding: 16px 20px; margin: 16px 24px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.05); font-size: 0.85rem; line-height: 1.6; color: #374151 !important;
     }
-    .info-box strong { color:#1a3d2b; }
+    .info-box strong { color: #1a3d2b !important; }
+
+    .kab-grid {
+        display: grid; grid-template-columns: repeat(auto-fit, minmax(180px,1fr));
+        gap: 12px; padding: 0 24px 20px;
+    }
+    .kab-card {
+        background: #ffffff !important; border-radius: 14px; padding: 14px 16px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.06); border-top: 4px solid #40916c;
+    }
+    .kab-card.tinggi { border-top-color: #16a34a; }
+    .kab-card.sedang { border-top-color: #d97706; }
+    .kab-card.rendah { border-top-color: #dc2626; }
+    .kab-name { font-size: 0.85rem; font-weight: 700; color: #1a3d2b !important; margin-bottom: 4px; }
+    .kab-prod { font-size: 1.2rem; font-weight: 800; color: #1a3d2b !important; line-height: 1; }
+    .kab-unit { font-size: 0.7rem; color: #6b7280 !important; }
+    .kab-badge { display: inline-block; margin-top: 4px; padding: 2px 8px; border-radius: 20px; font-size: 0.65rem; font-weight: 700; }
+
+    /* === MOBILE RESPONSIVE === */
+    .mobile-hint { display: none; }
+
+    @media (max-width: 768px) {
+        .metric-grid { grid-template-columns: repeat(2,1fr); padding: 14px 12px 0; }
+        .metric-value { font-size: 1.35rem; }
+        .section-header { margin: 18px 12px 10px; font-size: 1rem; }
+        .kab-grid { grid-template-columns: repeat(2,1fr); padding: 0 12px 16px; }
+        .info-box { margin: 0 12px 12px; font-size: 0.8rem; }
+
+        /* KUNCI lebar sidebar di mobile supaya tidak bisa dikecilkan sembarangan */
+        section[data-testid="stSidebar"] {
+            width: 80vw !important;
+            min-width: 260px !important;
+            max-width: 320px !important;
+        }
+        .block-container { padding-top: 1rem !important; padding-left: 0.75rem !important; padding-right: 0.75rem !important; }
+
+        .mobile-hint {
+            display: block;
+            background: #fff3cd !important;
+            color: #856404 !important;
+            padding: 12px 12px 12px 55px;
+            border-radius: 12px;
+            margin: -8px 12px 15px;
+            font-size: 14px;
+            font-weight: 600;
+            position: relative;
+        }
+    }
     </style>
     """, unsafe_allow_html=True)
 
@@ -235,7 +319,6 @@ def show_detail(kab_default='Badung'):
             <hr style='border:none; border-top:1px solid rgba(255,255,255,0.2); margin:16px 0;'>
             <div style='font-size:0.72rem; color:#74c69d; text-align:center; line-height:2;'>
                 Model &nbsp;<strong style='color:white'>CNN-LSTM</strong><br>
-                Window &nbsp;<strong style='color:white'>6 bulan</strong><br>
                 Fitur &nbsp;<strong style='color:white'>9 variabel</strong>
             </div>
         """, unsafe_allow_html=True)
@@ -331,6 +414,7 @@ def show_detail(kab_default='Badung'):
         </div>
         """, unsafe_allow_html=True)
 
+        st.markdown('<div style="height:16px;"></div>', unsafe_allow_html=True)
         st.markdown(f"""
         <div class="info-box">
             📌 <strong>Kabupaten {kab_pilih}</strong> — Prediksi produksi padi bulan
@@ -421,14 +505,28 @@ def show_detail(kab_default='Badung'):
     else:
         all_x = x_hist
 
-    fig.update_layout(
+        fig.update_layout(
         title=dict(text=f"Tren Produksi Padi — Kab. {kab_pilih}", font=dict(size=14, color="#1a3d2b")),
-        paper_bgcolor="white", plot_bgcolor="white",
-        xaxis=dict(tickfont=dict(size=9), gridcolor="#f0f0f0", tickangle=45,
-                   type='category', categoryorder='array', categoryarray=all_x),
-        yaxis=dict(title="Produksi (Ton)", tickfont=dict(size=10), gridcolor="#f0f0f0"),
+        paper_bgcolor="#ffffff",   # ← tambah !explicit
+        plot_bgcolor="#ffffff",    # ← tambah !explicit
+        font=dict(color="#1a3d2b"),  # ← TAMBAHKAN INI — fix semua label chart
+        xaxis=dict(
+            tickfont=dict(size=9, color="#374151"),  # ← tambah color
+            gridcolor="#f0f0f0",
+            tickangle=45,
+            type='category', categoryorder='array', categoryarray=all_x
+        ),
+            yaxis=dict(
+            title=dict(
+                text="Produksi (Ton)",
+                font=dict(color="#374151")  # ← ganti titlefont jadi title=dict(font=...)
+            ),
+            tickfont=dict(size=10, color="#374151"),
+            gridcolor="#f0f0f0"
+        ),
+
         margin=dict(l=10, r=10, t=50, b=60),
-        legend=dict(font=dict(size=10), orientation="h", y=-0.25),
+        legend=dict(font=dict(size=10, color="#374151"), orientation="h", y=-0.25),
         height=380
     )
 

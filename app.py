@@ -130,7 +130,9 @@ p, span, div, label, h1, h2, h3, h4, h5, h6,
 [data-testid="collapsedControl"] svg { fill: white !important; }
 [data-testid="stSidebarCollapseButton"] { visibility: visible !important; }
 [data-testid="stSidebarCollapseButton"] svg { fill: white !important; }
-
+[data-testid="stSidebar"] {
+    color-scheme: light !important;
+}
 [data-testid="stSidebar"],
 [data-testid="stSidebar"] > div,
 [data-testid="stSidebar"] > div > div {
@@ -160,6 +162,24 @@ p, span, div, label, h1, h2, h3, h4, h5, h6,
     margin-bottom: 8px !important;
 }
 [data-testid="stSidebar"] button:hover { box-shadow: 0 8px 20px rgba(244,166,42,0.5) !important; }
+            
+
+    /* Matikan resize handle sidebar */
+    [data-testid="stSidebar"] {
+        resize: none !important;
+        min-width: 270px !important;
+        max-width: 270px !important;
+        width: 270px !important;
+    }
+
+    /* Sembunyikan drag handle */
+    [data-testid="stSidebarResizeHandle"],
+    .stSidebarResizeHandle {
+        display: none !important;
+        pointer-events: none !important;
+        width: 0 !important;
+    }
+
 
 /* === METRIC & CARD COMPONENTS === */
 .metric-grid {
@@ -219,24 +239,31 @@ p, span, div, label, h1, h2, h3, h4, h5, h6,
     .kab-grid { grid-template-columns: repeat(2,1fr); padding: 0 12px 16px; }
     .info-box { margin: 0 12px 12px; font-size: 0.8rem; }
 
-    /* KUNCI lebar sidebar di mobile supaya tidak bisa dikecilkan sembarangan */
     section[data-testid="stSidebar"] {
         width: 80vw !important;
         min-width: 260px !important;
         max-width: 320px !important;
     }
-    .block-container { padding-top: 1rem !important; padding-left: 0.75rem !important; padding-right: 0.75rem !important; }
+    .block-container { 
+        padding-top: 1rem !important; 
+        padding-left: 0.75rem !important; 
+        padding-right: 0.75rem !important; 
+    }
 
     .mobile-hint {
         display: block;
         background: #fff3cd !important;
         color: #856404 !important;
-        padding: 12px 12px 12px 55px;
-        border-radius: 12px;
-        margin: -8px 12px 15px;
-        font-size: 14px;
+        padding: 8px 16px;
+        border-radius: 0;                    /* ← full width, tidak ada radius */
+        margin: 0;                           /* ← tidak ada margin */
+        font-size: 12px;
         font-weight: 600;
-        position: relative;
+        position: sticky;                    /* ← sticky, ikut tanda sidebar */
+        top: 0;                              /* ← nempel di atas */
+        z-index: 999;
+        text-align: center;                  /* ← teks tengah */
+        border-bottom: 1px solid #f0c040;
     }
 }
 </style>
@@ -244,7 +271,7 @@ p, span, div, label, h1, h2, h3, h4, h5, h6,
 
 st.markdown("""
 <div class="mobile-hint">
-Klik tanda disamping ini untuk melihat menu
+    Ketuk tanda <b>&nbsp;»&nbsp;</b> di pojok kiri atas untuk membuka menu
 </div>
 """, unsafe_allow_html=True)
 
@@ -456,6 +483,7 @@ st.markdown(f"""
 """, unsafe_allow_html=True)
 
 # ── INFO BOX ──
+st.markdown('<div style="height:16px;"></div>', unsafe_allow_html=True)
 st.markdown(f"""
 <div class="info-box">
     📌 <strong>Provinsi Bali</strong> — Data historis produksi padi bulan
@@ -470,6 +498,7 @@ st.markdown(f"""
 # ─────────────────────────────────────────────
 # PETA
 # ─────────────────────────────────────────────
+st.markdown('<div style="height: 8px;"></div>', unsafe_allow_html=True)
 st.markdown('<div class="section-header">🗺️ Peta Produksi Padi Seluruh Bali</div>', unsafe_allow_html=True)
 
 m = folium.Map(location=[-8.4095, 115.1889], zoom_start=9, tiles="CartoDB positron")

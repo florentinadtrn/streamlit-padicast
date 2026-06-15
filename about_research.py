@@ -6,20 +6,62 @@ def show_about():
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap');
 
-    html, body, [class*="css"] { font-family: 'Plus Jakarta Sans', sans-serif; }
-    #MainMenu, footer           { visibility: hidden; }
-    header                      { visibility: visible !important; background: transparent !important; }
+    /* === FORCE LIGHT MODE === */
+    :root { color-scheme: light !important; }
 
+    html, body,
+    [data-testid="stApp"],
+    [data-testid="stAppViewContainer"] {
+        background-color: #f0f4f1 !important;
+        color: #1a1a1a !important;
+    }
+    html, body, [class*="css"] { font-family: 'Plus Jakarta Sans', sans-serif; }
+    #MainMenu, footer { visibility: hidden; }
+
+    /* === PAKSA SEMUA TEKS TERLIHAT === */
+    p, span, div, label,
+    h1, h2, h3, h4, h5, h6,
+    .stMarkdown,
+    [data-testid="stMarkdownContainer"],
+    [data-testid="stVerticalBlock"] p {
+        color: #1a1a1a !important;
+    }
+
+    /* Fix st.subheader & st.write di dalam container */
+    [data-testid="stVerticalBlockBorderWrapper"] {
+        background-color: #ffffff !important;
+        border-color: #e5e7eb !important;
+    }
+    [data-testid="stVerticalBlockBorderWrapper"] h2,
+    [data-testid="stVerticalBlockBorderWrapper"] h3,
+    [data-testid="stVerticalBlockBorderWrapper"] p,
+    [data-testid="stVerticalBlockBorderWrapper"] div {
+        color: #1a1a1a !important;
+    }
+
+    /* Fix st.info box */
+    [data-testid="stAlert"] {
+        background-color: #eff6ff !important;
+        border-color: #bfdbfe !important;
+        color: #1e3a5f !important;
+    }
+    [data-testid="stAlert"] p,
+    [data-testid="stAlert"] div { color: #1e3a5f !important; }
+
+    /* === SIDEBAR === */
     [data-testid="stSidebarCollapseButton"] { visibility: visible !important; }
     [data-testid="stSidebarCollapseButton"] svg { fill: white !important; }
-
     [data-testid="stSidebar"],
     [data-testid="stSidebar"] > div,
     [data-testid="stSidebar"] > div > div {
         background-color: #1a3d2b !important;
         background-image: linear-gradient(180deg, #1a3d2b 0%, #2d6a4f 100%) !important;
     }
-
+    [data-testid="stSidebar"] p,
+    [data-testid="stSidebar"] span,
+    [data-testid="stSidebar"] div,
+    [data-testid="stSidebar"] label,
+    [data-testid="stSidebar"] h2 { color: #e8f5ee !important; }
     [data-testid="stSidebar"] button {
         background: linear-gradient(135deg, #f4a62a, #e8942a) !important;
         color: #1a3d2b !important; font-weight: 800 !important; border: none !important;
@@ -27,17 +69,31 @@ def show_about():
         box-shadow: 0 4px 14px rgba(244,166,42,0.4) !important; margin-bottom: 8px !important;
     }
 
-    .stApp { background: #f0f4f1; }
+    /* === HERO SECTION FIX === */
+    .hero-box {
+        background: linear-gradient(135deg, #1a3d2b, #2d6a4f) !important;
+        padding: 32px;
+        border-radius: 24px;
+        margin-bottom: 25px;
+    }
+    .hero-box h1, .hero-box p { color: #ffffff !important; }
+    .hero-desc { color: #d8f3dc !important; }
 
+    /* === MAIN TITLE === */
     .main-title {
-        font-size: 2.2rem;
+        font-size: 2rem;
         font-weight: 800;
-        color: #1a3d2b;
+        color: #1a3d2b !important;
     }
 
-    .sub {
-        color: #6b7280;
-        margin-bottom: 30px;
+    /* === MOBILE === */
+    @media (max-width: 768px) {
+        .hero-box { padding: 20px; }
+        .main-title { font-size: 1.5rem; }
+        section[data-testid="stSidebar"] {
+            width: 80vw !important;
+            min-width: 260px !important;
+        }
     }
     </style>
     """, unsafe_allow_html=True)
@@ -60,23 +116,14 @@ def show_about():
             st.rerun()
 
     # HERO
-    st.markdown("""
-    <div style="
-        background:linear-gradient(135deg,#1a3d2b,#2d6a4f);
-        padding:40px;
-        border-radius:24px;
-        color:white;
-        margin-bottom:25px;
-    ">
-
-    <h1>🌾 About Research</h1>
-
-    <p style="color:#d8f3dc;font-size:16px;line-height:1.8;">
-    PadiCast Bali merupakan sistem prediksi hasil panen padi
-    berbasis kecerdasan buatan untuk membantu analisis produksi
-    pertanian di Provinsi Bali.
-    </p>
-
+        st.markdown("""
+    <div class="hero-box">
+        <h1>🌾 About Research</h1>
+        <p class="hero-desc" style="font-size:16px; line-height:1.8;">
+        PadiCast Bali merupakan sistem prediksi hasil panen padi
+        berbasis kecerdasan buatan untuk membantu analisis produksi
+        pertanian di Provinsi Bali.
+        </p>
     </div>
     """, unsafe_allow_html=True)
 
