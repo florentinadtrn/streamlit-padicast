@@ -68,6 +68,21 @@ def show_about():
         border-radius: 12px !important; width: 100% !important; padding: 0.6rem !important;
         box-shadow: 0 4px 14px rgba(244,166,42,0.4) !important; margin-bottom: 8px !important;
     }
+    /* Matikan resize handle sidebar */
+    [data-testid="stSidebar"] {
+        resize: none !important;
+        min-width: 270px !important;
+        max-width: 270px !important;
+        width: 270px !important;
+    }
+
+    /* Sembunyikan drag handle */
+    [data-testid="stSidebarResizeHandle"],
+    .stSidebarResizeHandle {
+        display: none !important;
+        pointer-events: none !important;
+        width: 0 !important;
+    }
 
     /* === HERO SECTION FIX === */
     .hero-box {
