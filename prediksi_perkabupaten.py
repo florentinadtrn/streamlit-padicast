@@ -129,7 +129,15 @@ def show_detail(kab_default='Badung'):
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap');
 
-    /* === FORCE LIGHT MODE SELURUH APP === */
+    /* === FORCE LIGHT MODE GLOBAL === */
+    :root {
+        color-scheme: light only !important;
+    }
+
+    * {
+        forced-color-adjust: none !important;
+    }
+     /* === FORCE LIGHT MODE SELURUH APP === */
     html, body,
     [data-testid="stApp"],
     [data-testid="stAppViewContainer"],

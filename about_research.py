@@ -6,9 +6,15 @@ def show_about():
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap');
 
-    /* === FORCE LIGHT MODE === */
-    :root { color-scheme: light !important; }
+    /* === FORCE LIGHT MODE GLOBAL === */
+    :root {
+        color-scheme: light only !important;
+    }
 
+    * {
+        forced-color-adjust: none !important;
+    }
+    /* === FORCE LIGHT MODE SELURUH APP === */
     html, body,
     [data-testid="stApp"],
     [data-testid="stAppViewContainer"] {
