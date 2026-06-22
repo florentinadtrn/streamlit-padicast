@@ -122,8 +122,18 @@ def predict_produksi(kab, bulan_target, tahun_target, model, scaler_x, scaler_y,
     return hasil
 
 def show_detail(kab_default='Badung'):
-    model, scaler_x, scaler_y, df_historis, _ = load_assets()
+    model, scaler_x, scaler_y, df_historis, errors = load_assets()
+
+    st.write("MODEL:", model is not None)
+    st.write("SCALER_X:", scaler_x is not None)
+    st.write("SCALER_Y:", scaler_y is not None)
+    st.write("DATA:", df_historis is not None)
+
+    if errors:
+        st.error(errors)
+
     geojson_bali = load_geojson()
+
 
     st.markdown("""
     <style>
