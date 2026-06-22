@@ -4,7 +4,7 @@ numpy
 plotly
 folium
 streamlit-folium
-tensorflow== 2.15.0
+tensorflow== 2.21.0
 scikit-learn
 joblib
 requests
