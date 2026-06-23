@@ -4,17 +4,11 @@ def show_about():
 
     st.markdown("""
     <style>
-    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
 
-    /* === FORCE LIGHT MODE GLOBAL === */
-    :root {
-        color-scheme: light only !important;
-    }
+    :root { color-scheme: light only !important; }
+    * { forced-color-adjust: none !important; }
 
-    * {
-        forced-color-adjust: none !important;
-    }
-    /* === FORCE LIGHT MODE SELURUH APP === */
     html, body,
     [data-testid="stApp"],
     [data-testid="stAppViewContainer"] {
@@ -24,28 +18,19 @@ def show_about():
     html, body, [class*="css"] { font-family: 'Plus Jakarta Sans', sans-serif; }
     #MainMenu, footer { visibility: hidden; }
 
-    /* === PAKSA SEMUA TEKS TERLIHAT === */
-    p, span, div, label,
-    h1, h2, h3, h4, h5, h6,
-    .stMarkdown,
-    [data-testid="stMarkdownContainer"],
-    [data-testid="stVerticalBlock"] p {
-        color: #1a1a1a !important;
-    }
+    p, span, div, label, h1, h2, h3, h4, h5, h6,
+    .stMarkdown, [data-testid="stMarkdownContainer"],
+    [data-testid="stVerticalBlock"] p { color: #1a1a1a !important; }
 
-    /* Fix st.subheader & st.write di dalam container */
     [data-testid="stVerticalBlockBorderWrapper"] {
         background-color: #ffffff !important;
         border-color: #e5e7eb !important;
+        border-radius: 14px !important;
     }
-    [data-testid="stVerticalBlockBorderWrapper"] h2,
     [data-testid="stVerticalBlockBorderWrapper"] h3,
     [data-testid="stVerticalBlockBorderWrapper"] p,
-    [data-testid="stVerticalBlockBorderWrapper"] div {
-        color: #1a1a1a !important;
-    }
+    [data-testid="stVerticalBlockBorderWrapper"] div { color: #1a1a1a !important; }
 
-    /* Fix st.info box */
     [data-testid="stAlert"] {
         background-color: #eff6ff !important;
         border-color: #bfdbfe !important;
@@ -74,43 +59,43 @@ def show_about():
         border-radius: 12px !important; width: 100% !important; padding: 0.6rem !important;
         box-shadow: 0 4px 14px rgba(244,166,42,0.4) !important; margin-bottom: 8px !important;
     }
-    /* Matikan resize handle sidebar */
     [data-testid="stSidebar"] {
         resize: none !important;
         min-width: 270px !important;
         max-width: 270px !important;
         width: 270px !important;
     }
-
-    /* Sembunyikan drag handle */
-    [data-testid="stSidebarResizeHandle"],
-    .stSidebarResizeHandle {
+    [data-testid="stSidebarResizeHandle"], .stSidebarResizeHandle {
         display: none !important;
         pointer-events: none !important;
         width: 0 !important;
     }
 
-    /* === HERO SECTION FIX === */
-    .hero-box {
+      .hero-box {
         background: linear-gradient(135deg, #1a3d2b, #2d6a4f) !important;
         padding: 32px;
         border-radius: 24px;
         margin-bottom: 25px;
     }
-    .hero-box h1, .hero-box p { color: #ffffff !important; }
-    .hero-desc { color: #d8f3dc !important; }
 
-    /* === MAIN TITLE === */
-    .main-title {
-        font-size: 2rem;
+    .hero-box h1,
+    .hero-box h1 * {
+        color: #ffffff !important;
+        font-size: 2rem !important;
         font-weight: 800;
-        color: #1a3d2b !important;
+        margin: 0 0 4px 0;
     }
 
-    /* === MOBILE === */
+    .hero-box p,
+    .hero-box p *,
+    .hero-box span,
+    .hero-box div {
+        color: #d8f3dc !important;
+        font-size: 0.95rem;
+        line-height: 1.5;
+        margin: 0;
+    }
     @media (max-width: 768px) {
-        .hero-box { padding: 20px; }
-        .main-title { font-size: 1.5rem; }
         section[data-testid="stSidebar"] {
             width: 80vw !important;
             min-width: 260px !important;
@@ -121,12 +106,7 @@ def show_about():
 
     # SIDEBAR
     with st.sidebar:
-
-        st.markdown("""
-        <h2 style='color:white;'>
-        🌾 PadiCast Bali
-        </h2>
-        """, unsafe_allow_html=True)
+        st.markdown("<h2 style='color:white;'>🌾 PadiCast Bali</h2>", unsafe_allow_html=True)
 
         if st.button("📊 Dashboard", use_container_width=True):
             st.session_state['halaman'] = 'overview'
@@ -148,79 +128,46 @@ def show_about():
     </div>
     """, unsafe_allow_html=True)
 
-    st.markdown("""
-    <div class="main-title">
-    📘 Informasi Penelitian
-    </div>
-    """, unsafe_allow_html=True)
+    # ROW 1
+    col1, col2 = st.columns(2)
 
-    st.write("")
+    with col1:
+        with st.container(border=True):
+            st.subheader("🎓 Penelitian Akhir")
+            st.write("""
+Sistem ini dibangun sebagai bagian dari penelitian akhir untuk memperoleh gelar Sarjana Komputer (S.Kom).
 
-    # CARD 1
-    with st.container(border=True):
+Penelitian ini berfokus pada pengembangan sistem prediksi hasil panen padi berbasis Artificial Intelligence untuk membantu analisis pertanian di Provinsi Bali.
+            """)
 
-        st.subheader("🎓 Penelitian Akhir")
+    with col2:
+        with st.container(border=True):
+            st.subheader("📊 Dataset Historis")
+            st.write("""
+Dataset historis produksi padi diperoleh dari Badan Pusat Statistik (BPS) Provinsi Bali.
 
-        st.write("""
-        Sistem ini dibangun sebagai bagian dari penelitian akhir
-        untuk memperoleh gelar Sarjana Komputer (S.Kom).
+Dataset mencakup data produksi padi, luas lahan, dan data pendukung lainnya pada periode 2018–2025.
+            """)
 
-        Penelitian ini berfokus pada pengembangan sistem
-        prediksi hasil panen padi berbasis Artificial Intelligence
-        untuk membantu analisis pertanian di Provinsi Bali.
-        """)
+    # ROW 2
+    col3, col4 = st.columns(2)
 
-    st.write("")
+    with col3:
+        with st.container(border=True):
+            st.subheader("🤖 Model CNN-LSTM")
+            st.write("""
+Model prediksi yang digunakan yaitu CNN-LSTM yang merupakan gabungan antara Convolutional Neural Network (CNN) dan Long Short-Term Memory (LSTM).
 
-    # CARD 2
-    with st.container(border=True):
+Model ini mampu mengolah pola data spasial citra satelit dan data runtun waktu untuk menghasilkan prediksi panen padi.
+            """)
 
-        st.subheader("📊 Dataset Historis")
+    with col4:
+        with st.container(border=True):
+            st.subheader("🛰️ Dataset Citra Satelit")
+            st.write("""
+🌱 NDVI (Normalized Difference Vegetation Index) digunakan untuk melihat tingkat kehijauan tanaman padi.
 
-        st.write("""
-        Dataset historis produksi padi diperoleh dari
-        Badan Pusat Statistik (BPS) Provinsi Bali.
+🌧️ CHIRPS digunakan untuk memperoleh data curah hujan pada wilayah penelitian.
+            """)
 
-        Dataset mencakup data produksi padi,
-        luas lahan, dan data pendukung lainnya
-        pada periode 2018–2025.
-        """)
-
-    st.write("")
-
-    # CARD 3
-    with st.container(border=True):
-
-        st.subheader("🤖 Model CNN-LSTM")
-
-        st.write("""
-        Model prediksi yang digunakan yaitu CNN-LSTM
-        yang merupakan gabungan antara
-        Convolutional Neural Network (CNN)
-        dan Long Short-Term Memory (LSTM).
-
-        Model ini mampu mengolah pola data spasial
-        citra satelit dan data runtun waktu
-        untuk menghasilkan prediksi panen padi.
-        """)
-
-    st.write("")
-
-    # CARD 4
-    with st.container(border=True):
-
-        st.subheader("🛰️ Dataset Citra Satelit")
-
-        st.write("""
-🌱 NDVI (Normalized Difference Vegetation Index)
-digunakan untuk melihat tingkat kehijauan tanaman padi.
-
-🌧️ CHIRPS digunakan untuk memperoleh data curah hujan
-pada wilayah penelitian.
-        """)
-
-    st.write("")
-
-    st.info("""
-PadiCast Bali · CNN-LSTM · BPS · NDVI · CHIRPS
-""")
+    st.info("PadiCast Bali · CNN-LSTM · BPS · NDVI · CHIRPS")
